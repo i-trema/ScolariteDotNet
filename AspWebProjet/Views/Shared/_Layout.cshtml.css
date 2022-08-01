@@ -2,47 +2,233 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+.navbar {
+    background-color: #24252a;
 }
 
 a {
-  color: #0077cc;
+    color: #0077cc;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
 }
+
+.border-bottom {
+    justify-content: center;
+}
+
+.navbar-nav {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    color: #000000;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+    .navbar-nav li {
+        padding: 0px 20px;
+    }
+
+        .navbar-nav li a {
+            color: #111111;
+            transition: color 0.3s ease 0s;
+            margin-right: 10px;
+            text-decoration: none;
+        }
+
+            .navbar-nav li a:hover {
+                color: #0088a9;
+            }
+
+
+
+/*.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    background-color: #24252a;
+    overflow-x: hidden;
+    transition: width 0.5s ease 0s;
+}
+
+.overlay--active {
+    width: 100%;
+}
+
+.overlay a {
+    color: aliceblue;
+    padding: 15px;
+    font-size: 36px;
+    display: block;
+    transition: color 0.3s ease 0s;
+    text-decoration: none;
+}
+
+    .overlay a:hover, .inscriptionm:hover
+    .overlay a:focus, .inscriptionm:focus {
+        color: #0088a9;
+    }
+
+.overlay .close {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+    cursor: pointer;
+    color: #edf0f1;
+}*/
+
+/*@media screen and (max-height: 450px) {
+    .overlay a  {
+        font-size: 20px;
+    }
+
+    .overlay .inscriptionm {
+        color: aliceblue;
+        padding: 15px;
+        font-size: 36px;
+        display: block;
+        transition: color 0.3s ease 0s;
+        text-decoration: none;
+    }
+
+    .overlay .close {
+        font-size: 40px;
+        top: 15px;
+        right: 35px;
+        cursor: pointer;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .navbar-nav,
+    .cta {
+        display: none;
+    }
+
+    .menu {
+        display: initial;
+    }
+}*/
+
+
+
+
+
+
+/* Mobile Nav */
+
+/*.menu {
+    display: none;
+}
+
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    background-color: #24252a;
+    overflow-x: hidden;
+    transition: width 0.5s ease 0s;
+}
+
+.overlay--active {
+    width: 100%;
+}
+
+.overlay__content {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay a {
+    padding: 15px;
+    font-size: 36px;
+    display: block;
+    transition: color 0.3s ease 0s;
+}
+
+    .overlay a:hover,
+    .overlay a:focus {
+        color: #0088a9;
+    }
+
+.overlay .close {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+    color: #edf0f1;
+}
+
+@media screen and (max-height: 450px) {
+    .overlay a {
+        font-size: 20px;
+    }
+
+    .overlay .close {
+        font-size: 40px;
+        top: 15px;
+        right: 35px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .nav__links,
+    .cta {
+        display: none;
+    }
+
+    .menu {
+        display: initial;
+    }
+}*/

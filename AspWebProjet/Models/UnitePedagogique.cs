@@ -5,8 +5,7 @@
         public int Id { get; set; }
         public string Intitule { get; set; }
 
-        public int ModuleId { get; set; }
-        public Module Module { get; set; }
+        public ICollection<Module> Modules { get; set; }
 
     }
 }

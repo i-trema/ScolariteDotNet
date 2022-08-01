@@ -11,7 +11,8 @@
         public int ParcoursId { get; set; }
         public Parcours? Parcours { get; set; }
 
-        public ICollection<UnitePedagogique> UnitesPedagogiques { get; set; }
+        public int UnitePedagogiqueId { get; set; }
+        public UnitePedagogique? UnitePedagogique { get; set; }
 
 
 

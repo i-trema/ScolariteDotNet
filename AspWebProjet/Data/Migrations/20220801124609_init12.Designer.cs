@@ -4,6 +4,7 @@ using AspWebProjet.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AspWebProjet.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220801124609_init12")]
+    partial class init12
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,14 +51,9 @@ namespace AspWebProjet.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UnitePedagogiqueId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ParcoursId");
-
-                    b.HasIndex("UnitePedagogiqueId");
 
                     b.ToTable("Modules");
                 });
@@ -129,7 +126,12 @@ namespace AspWebProjet.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ModuleId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ModuleId");
 
                     b.ToTable("UnitesPedagogiques");
                 });
@@ -149,12 +151,14 @@ namespace AspWebProjet.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Nom")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Prenom")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Role")
+                    b.Property<int>("Role")
                         .HasColumnType("int");
 
                     b.HasKey("Email");
@@ -372,15 +376,7 @@ namespace AspWebProjet.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AspWebProjet.Models.UnitePedagogique", "UnitePedagogique")
-                        .WithMany("Modules")
-                        .HasForeignKey("UnitePedagogiqueId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Parcours");
-
-                    b.Navigation("UnitePedagogique");
                 });
 
             modelBuilder.Entity("AspWebProjet.Models.Session", b =>
@@ -400,6 +396,17 @@ namespace AspWebProjet.Data.Migrations
                     b.Navigation("Parcours");
 
                     b.Navigation("Responsable");
+                });
+
+            modelBuilder.Entity("AspWebProjet.Models.UnitePedagogique", b =>
+                {
+                    b.HasOne("AspWebProjet.Models.Module", "Module")
+                        .WithMany("UnitesPedagogiques")
+                        .HasForeignKey("ModuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Module");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -453,12 +460,12 @@ namespace AspWebProjet.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("AspWebProjet.Models.Parcours", b =>
+            modelBuilder.Entity("AspWebProjet.Models.Module", b =>
                 {
-                    b.Navigation("Modules");
+                    b.Navigation("UnitesPedagogiques");
                 });
 
-            modelBuilder.Entity("AspWebProjet.Models.UnitePedagogique", b =>
+            modelBuilder.Entity("AspWebProjet.Models.Parcours", b =>
                 {
                     b.Navigation("Modules");
                 });
