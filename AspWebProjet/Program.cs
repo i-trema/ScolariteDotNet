@@ -44,7 +44,7 @@ namespace AspWebProjet
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Sessions}/{action=Index}/{id?}");
             app.MapRazorPages();
 
             app.Run();

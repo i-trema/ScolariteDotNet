@@ -23,7 +23,15 @@ namespace AspWebProjet.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Sessions.Include(s => s.Parcours);
+            ViewData["Parcours"] = _context.Parcours.Include(p => p);
+
             return View(await applicationDbContext.ToListAsync());
+        }
+
+        public async Task<List<Parcours>> IndexParcours()
+        {
+            var applicationDbContext = _context.Parcours.Include(s => s.Modules);
+            return await applicationDbContext.ToListAsync();
         }
 
         // GET: Sessions/Details/5
@@ -57,7 +65,7 @@ namespace AspWebProjet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Intitule,Date,ParcoursId")] Session session)
+        public async Task<IActionResult> Create([Bind("Id,Intitule,DateDebut,DateFin,ParcoursId")] Session session)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +99,7 @@ namespace AspWebProjet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Intitule,Date,ParcoursId")] Session session)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Intitule,DateDebut,DateFin,ParcoursId")] Session session)
         {
             if (id != session.Id)
             {

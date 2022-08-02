@@ -22,7 +22,8 @@ namespace AspWebProjet.Controllers
         // GET: Parcours
         public async Task<IActionResult> Index()
         {
-              return _context.Parcours != null ? 
+            
+            return _context.Parcours != null ? 
                           View(await _context.Parcours.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Parcours'  is null.");
         }

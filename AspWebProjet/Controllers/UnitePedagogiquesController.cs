@@ -56,7 +56,7 @@ namespace AspWebProjet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Intitule")] UnitePedagogique unitePedagogique)
+        public async Task<IActionResult> Create([Bind("Intitule")] UnitePedagogique unitePedagogique)
         {
             if (ModelState.IsValid)
             {

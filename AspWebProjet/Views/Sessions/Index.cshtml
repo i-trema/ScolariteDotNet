@@ -1,47 +1,105 @@
 ﻿@model IEnumerable<AspWebProjet.Models.Session>
 
 @{
+    Layout = "_Layout2";
+    
+}
+
+
+@{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Intitule)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Parcours)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Intitule)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Parcours.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<h1>Sessions</h1>
+
+@*<p>
+    <a asp-action="Create">Nouvelle session</a>
+</p>*@
+
+
+<div id="carouselControls" class="carousel slide" data-bs-ride="carousel">
+
+
+
+    <div class="carousel-inner">
+        @foreach (var item in Model) {
+            @if ((@Model.ToList().IndexOf(item) == 0))
+            {
+                <div class="carousel-item active">
+                    <div class="card" style="width: 18rem; margin:auto; text-align:center" >
+                        <img src="~/Images/@item.Parcours.Logo" class="card-img-top" style="width:50%; margin:auto" alt="...">
+                     <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Intitule)</h5>
+                         <p class="card-text">@Html.DisplayFor(modelItem => item.DateDebut)</p>
+                         <p class="card-text">@Html.DisplayFor(modelItem => item.DateFin)</p>
+                         <a href="#" class="btn btn-primary" >S'inscrire</a>
+                    </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="carousel-item">
+                    <div class="card" style="width: 18rem; margin:auto; text-align:center" >
+                        <img src="~/Images/@item.Parcours.Logo" class="card-img-top" style="width:50%; margin:auto" alt="...">
+                     <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Intitule)</h5>
+                         <p class="card-text">@Html.DisplayFor(modelItem => item.DateDebut)</p>
+                         <p class="card-text">@Html.DisplayFor(modelItem => item.DateFin)</p>
+                         <a href="#" class="btn btn-primary" >S'inscrire</a>
+                    </div>
+                    </div>
+                </div>
+            }
+
+        }
+    
+    </div>
+
+    @*@foreach ( var item in )
+    {
+        <p></p>
+    }*@
+
+
+    
+    <button style="filter: invert(100%)" class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button style="filter: invert(100%)" class="carousel-control-next" type="button" data-bs-target="#carouselControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+
+  </div>
+  @*<partial name="~/Views/Shared/_IndexParcours" />*@
+
+
+  @*<p>@ViewData["Message"]</p>*@
+  @*@foreach (var item in ){
+  <div class="card" style="width: 18rem; margin:auto; text-align:center" >
+                        <img src="~/Images/@item.Parcours.Logo" class="card-img-top" style="width:50%; margin:auto" alt="...">
+                     <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Parcours.Nom)</h5>
+                         <p class="card-text">@Html.DisplayFor(modelItem => item.Parcours.Resume)</p>
+                         
+                         <a href="#" class="btn btn-primary" >S'inscrire</a>
+                    </div>
+                    </div>
+
+                    }*@
+
+
+  @*<div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>*@
+ 
+@*@await RenderSectionAsync("_IndexParcours", required: false)*@
+
+
+

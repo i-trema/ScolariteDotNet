@@ -49,8 +49,8 @@ namespace AspWebProjet.Controllers
         // GET: Modules/Create
         public IActionResult Create()
         {
-            ViewData["ParcoursId"] = new SelectList(_context.Parcours, "Id", "Id");
-            ViewData["UnitePedagogiqueId"] = new SelectList(_context.UnitesPedagogiques, "Id", "Id");
+            ViewData["ParcoursId"] = new SelectList(_context.Parcours, "Id", "Nom");
+            ViewData["UnitePedagogiqueId"] = new SelectList(_context.UnitesPedagogiques, "Id", "Intitule");
             return View();
         }
 
@@ -85,8 +85,8 @@ namespace AspWebProjet.Controllers
             {
                 return NotFound();
             }
-            ViewData["ParcoursId"] = new SelectList(_context.Parcours, "Id", "Id", @module.ParcoursId);
-            ViewData["UnitePedagogiqueId"] = new SelectList(_context.UnitesPedagogiques, "Id", "Id", @module.UnitePedagogiqueId);
+            ViewData["ParcoursId"] = new SelectList(_context.Parcours, "Id", "Nom", @module.ParcoursId);
+            ViewData["UnitePedagogiqueId"] = new SelectList(_context.UnitesPedagogiques, "Id", "Intitule", @module.UnitePedagogiqueId);
             return View(@module);
         }
 

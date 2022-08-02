@@ -25,10 +25,10 @@
                 @Html.DisplayNameFor(model => model.Infos)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Parcours)
+                @Html.DisplayNameFor(model => model.Parcours.Nom)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UnitePedagogique)
+                @Html.DisplayNameFor(model => model.UnitePedagogique.Intitule)
             </th>
             <th></th>
         </tr>
@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.Nom)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Logo)
+                <img class="card-img-top" src="~/Images/@item.Logo" style="max-width:150px; margin:auto" alt="...">
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Resume)
@@ -49,10 +49,10 @@
                 @Html.DisplayFor(modelItem => item.Infos)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Parcours.Id)
+                @Html.DisplayFor(modelItem => item.Parcours.Nom)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UnitePedagogique.Id)
+                @Html.DisplayFor(modelItem => item.UnitePedagogique.Intitule)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

@@ -1,0 +1,22 @@
+﻿@model IEnumerable<AspWebProjet.Models.Parcours>
+
+<div>
+
+@foreach (var p in Model) {
+            
+            
+                <div class="carousel-item active">
+                    <div class="card" style="width: 18rem; margin:auto; text-align:center" >
+                        <img src="~/Images/@p.Logo" class="card-img-top" style="width:50%; margin:auto" alt="...">
+                     <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => p.Nom)</h5>
+                         <p class="card-text">@Html.DisplayFor(modelItem => p.Resume)</p>
+                         <a href="#" class="btn btn-primary" >S'inscrire</a>
+                    </div>
+                    </div>
+                </div>
+
+}
+  
+
+</div>
