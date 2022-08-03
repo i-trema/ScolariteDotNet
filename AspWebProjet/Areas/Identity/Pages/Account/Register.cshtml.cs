@@ -179,11 +179,12 @@ namespace AspWebProjet.Areas.Identity.Pages.Account
                     
                     if (Input.Role.Equals(1))
                     {
-                        await _userManager.AddToRoleAsync(user, "Responsable");
+                        
+                        //await _userManager.AddToRoleAsync(user, "Responsable");
                     }
                     else
                     {
-                        await _userManager.AddToRoleAsync(user, "Etudiant");
+                        //await _userManager.AddToRoleAsync(user, "Etudiant");
                     }
                     
 
