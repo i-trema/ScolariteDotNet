@@ -15,6 +15,6 @@ namespace AspWebProjet.Models
 
         public Utilisateur? Responsable { get; set; }
 
-
+        public ICollection<Utilisateur>? Etudiants { get; set; }
     }
 }

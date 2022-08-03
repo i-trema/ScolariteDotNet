@@ -1,4 +1,10 @@
 ﻿@model IEnumerable<AspWebProjet.Models.Session>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,10 +45,18 @@
                         @*<li>
                             <a href="#training">Formations</a>
                         </li>*@
-                        <li>
+                        
+                        
+                        @if (!SignInManager.IsSignedIn(User))
+                        {
+                           <li>
                              @*<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>*@
-                            <a class="btn btn-outline-success mb-2" asp-area="Identity" asp-page="/Account/Register">S'inscrire</a>
-                        </li>
+                            
+                             
+                             <a class="btn btn-outline-success mb-2" asp-area="Identity" asp-page="/Account/Register">S'inscrire</a>
+                        </li> 
+                        }
+                        
                         @*<li>
                             <a href="#review">Avis</a>
                         </li>*@

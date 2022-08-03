@@ -1,5 +1,7 @@
 ﻿@page
 @model RegisterModel
+
+
 @{
     ViewData["Title"] = "Register";
 }
@@ -12,6 +14,34 @@
             <h2>Create a new account.</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-floating">
+                <input asp-for="Input.Nom" class="form-control" aria-required="true" />
+                <label asp-for="Input.Nom"></label>
+                <span asp-validation-for="Input.Nom" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.Prenom" class="form-control" aria-required="true" />
+                <label asp-for="Input.Prenom"></label>
+                <span asp-validation-for="Input.Prenom" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.Adresse" class="form-control" aria-required="true" />
+                <label asp-for="Input.Adresse"></label>
+                <span asp-validation-for="Input.Adresse" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.DateDeNaissance" class="form-control" aria-required="true" />
+                <label asp-for="Input.DateDeNaissance"></label>
+                <span asp-validation-for="Input.DateDeNaissance" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating">
+                <input asp-for="Input.CV" class="form-control" aria-required="true" />
+                <label asp-for="Input.CV"></label>
+                <span asp-validation-for="Input.CV" class="text-danger"></span>
+            </div>
+
             <div class="form-floating">
                 <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
                 <label asp-for="Input.Email"></label>
@@ -27,6 +57,12 @@
                 <label asp-for="Input.ConfirmPassword"></label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
+            <div class="form-floating">
+                <input asp-for="Input.Role" class="form-control" aria-required="true" />
+                <label asp-for="Input.Role"></label>
+                <span asp-validation-for="Input.Role" class="text-danger"></span>
+            </div>
+            
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
         </form>
     </div>

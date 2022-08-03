@@ -14,25 +14,28 @@ namespace AspWebProjet.Controllers
     {
         private readonly ApplicationDbContext _context;
 
+        
         public SessionsController(ApplicationDbContext context)
         {
             _context = context;
+            
         }
 
+        
         // GET: Sessions
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Sessions.Include(s => s.Parcours);
-            ViewData["Parcours"] = _context.Parcours.Include(p => p);
-
+            
+            ViewBag.ParcList = _context.Parcours.Include(p => p.Modules).ToList();
             return View(await applicationDbContext.ToListAsync());
         }
 
-        public async Task<List<Parcours>> IndexParcours()
-        {
-            var applicationDbContext = _context.Parcours.Include(s => s.Modules);
-            return await applicationDbContext.ToListAsync();
-        }
+        //public async Task<List<Parcours>> IndexParcours()
+        //{
+        //    var applicationDbContext = _context.Parcours.Include(s => s.Modules);
+        //    return await applicationDbContext.ToListAsync();
+        //}
 
         // GET: Sessions/Details/5
         public async Task<IActionResult> Details(int? id)

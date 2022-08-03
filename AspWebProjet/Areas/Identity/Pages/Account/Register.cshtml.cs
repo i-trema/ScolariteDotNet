@@ -28,6 +28,7 @@ namespace AspWebProjet.Areas.Identity.Pages.Account
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IUserStore<IdentityUser> _userStore;
+        //private readonly IUserRoleStore<IdentityUser> _userRoleStore;
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
@@ -36,6 +37,7 @@ namespace AspWebProjet.Areas.Identity.Pages.Account
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
+            //IUserRoleStore<IdentityUser> userRoleStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
@@ -44,6 +46,7 @@ namespace AspWebProjet.Areas.Identity.Pages.Account
             
             _userManager = userManager;
             _userStore = userStore;
+            //_userRoleStore = userRoleStore;
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
@@ -80,6 +83,26 @@ namespace AspWebProjet.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            [Display(Name = "Nom")]
+            public string Nom { get; set; }
+
+            [Display(Name = "Prénom")]
+            public string Prenom { get; set; }
+            [Display(Name = "Adresse")]
+            public string Adresse { get; set; }
+
+            [Display(Name = "Date de naissance")]
+            [DataType(DataType.Date)]
+            public DateTime DateDeNaissance { get; set; }
+
+            [Display(Name = "CV")]
+            public string CV { get; set; }
+
+            [Display(Name = "Role")]
+            [Range(1, 2)]
+            
+            public int Role { get; set; } 
+
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -136,14 +159,33 @@ namespace AspWebProjet.Areas.Identity.Pages.Account
                         pageHandler: null,
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
+                    
 
                     Utilisateur u = new Utilisateur()
                     {
-                        Email = Input.Email
-
+                        Nom = Input.Nom,
+                        Prenom = Input.Prenom,
+                        Email = Input.Email,
+                        Adresse = Input.Adresse,
+                        DateDeNaissance = Input.DateDeNaissance,    
+                        CV = Input.CV,
+                        Role = Input.Role
                     };
+
+                    
                     _context.Utilisateurs.Add(u);
                     int i = _context.SaveChanges();
+
+                    
+                    if (Input.Role.Equals(1))
+                    {
+                        await _userManager.AddToRoleAsync(user, "Responsable");
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, "Etudiant");
+                    }
+                    
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
