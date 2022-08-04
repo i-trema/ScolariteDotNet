@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AspWebProjet.Data;
 using AspWebProjet.Models;
+using Microsoft.AspNetCore.Identity;
+
+
+
+
 
 namespace AspWebProjet.Controllers
 {
@@ -17,6 +22,7 @@ namespace AspWebProjet.Controllers
         public UtilisateursController(ApplicationDbContext context)
         {
             _context = context;
+
         }
 
         // GET: Utilisateurs
@@ -44,12 +50,59 @@ namespace AspWebProjet.Controllers
 
             return View(utilisateur);
         }
+        
+        //public async Task<IActionResult> InscriptionSession(int sessionId, Utilisateur utilisateur)
+        //{
+        //    var u = await _context.Utilisateurs.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
+        //    var s = await _context.Sessions.FirstOrDefaultAsync(s => s.Id == sessionId);
+
+        //    ViewBag.SessionsList = _context.Sessions.Include(s => s.Etudiants).ToList();
+        //    ViewBag.NewSession = s;
+        //    //ViewBag.NewSession = session;
+        //    return View(u);
+        //}
+
+        
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> InscriptionSession(Utilisateur utilisateur, Session session)
+        //{
+
+        //    utilisateur = await _context.Utilisateurs.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
+            
+
+
+           
+        //    if (/*ModelState.IsValid*/ 1 == 1)
+        //    {
+        //        try
+        //        {
+
+        //            session.Etudiants.Add(utilisateur);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!UtilisateurExists(utilisateur.Email))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(utilisateur);
+        //}
 
         // GET: Utilisateurs/Create
         public IActionResult Create()
         {
             return View();
         }
+
 
         // POST: Utilisateurs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.

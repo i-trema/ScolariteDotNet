@@ -21,13 +21,103 @@ namespace AspWebProjet.Controllers
             
         }
 
-        
+
+        public async Task<IActionResult> InscriptionSession(int? id)
+        {
+            var u = await _context.Utilisateurs.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
+            var session = await _context.Sessions
+                 .Include(s => s.Parcours)
+                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            //ViewBag.SessionsList = _context.Sessions.Include(s => s.Etudiants).ToList();
+            //ViewBag.NewSession = s;
+            ViewBag.Util = u;
+            
+
+            return View(session);
+        }
+
+
+        public async Task<IActionResult> ValidationInscriptionSession(int? id)
+        {
+            var u = await _context.Utilisateurs.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
+            var session = await _context.Sessions
+                 .Include(s => s.Parcours)
+                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (session.Etudiants == null)
+            {
+                session.Etudiants = new List<Utilisateur>();
+            }            
+
+            try
+            {
+
+                session.Etudiants.Add(u);
+                
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!SessionExists(session.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            
+
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> InscriptionSession(Utilisateur utilisateur, Session session)
+        //{
+
+        //    utilisateur = await _context.Utilisateurs.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
+
+
+
+
+        //    if (/*ModelState.IsValid*/ 1 == 1)
+        //    {
+        //        try
+        //        {
+
+        //            session.Etudiants.Add(utilisateur);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!UtilisateurExists(utilisateur.Email))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(utilisateur);
+        //}
+
         // GET: Sessions
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Sessions.Include(s => s.Parcours);
-            
+
+            var u = await _context.Utilisateurs.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
+
             ViewBag.ParcList = _context.Parcours.Include(p => p.Modules).ToList();
+            ViewBag.Util = u;
             return View(await applicationDbContext.ToListAsync());
         }
 

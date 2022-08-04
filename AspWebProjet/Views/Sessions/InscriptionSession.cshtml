@@ -1,0 +1,62 @@
+﻿@model AspWebProjet.Models.Session
+
+@using Microsoft.AspNetCore.Identity
+@using AspWebProjet.Models
+
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
+
+
+@{
+    ViewData["Title"] = "Create";
+    //List<Session> SessionsList = (List<Session>)ViewBag.SessionsList;
+    //Session newSession = (Session)ViewBag.NewSession;
+    Utilisateur util = (Utilisateur)ViewBag.util;
+    //if(@Model.Etudiants == null)
+    //{
+    //    @Model.Etudiants = new List<Utilisateur>();
+    //}
+    //@Model.Etudiants.Add(util);
+}
+
+<h1>Inscription à la session : @Model.Intitule</h1>
+
+
+
+<h6>Parcours : @Model.Parcours.Nom ( @Model.Parcours.Resume )</h6>
+<h6>Début : @Model.DateDebut</h6>
+<h6>Fin : @Model.DateFin</h6>
+@if (@Model.Responsable != null)
+{
+    <h6>Responsable : @Model.Responsable.Prenom @Model.Responsable.Nom</h6>
+}
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+                <h6>Email : <span>@util.Email</span></h6>
+                <h6>Nom : <span>@util.Nom</span></h6>
+                <h6>Prénom : <span>@util.Prenom</span></h6>
+
+                <a asp-action="ValidationInscriptionSession" asp-route-id="@Model.Id" class="btn btn-primary m-5" >Valider l'inscription</a>
+
+        @*<h6>Email : <span>@Model.Email</span></h6>*@
+                @*<h6>Nom : <span>@Model.Nom</span></h6>
+                <h6>Prénom : <span>@Model.Prenom</span></h6>*@
+
+            
+    </div>
+                
+</div>
+            
+        
+ 
+
+<div>
+    @*<a asp-action="Index">Back to List</a>*@
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

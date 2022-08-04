@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<AspWebProjet.Models.Session>
 @using AspWebProjet.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
 
 
 @{
@@ -11,6 +13,8 @@
 @{
     ViewData["Title"] = "Index";
     List<Parcours> ParcoursList = (List<Parcours>)ViewBag.ParcList;
+    Utilisateur u = (Utilisateur)ViewBag.Util;
+    
 }
 
 
@@ -18,6 +22,24 @@
 
 
 <h1>Sessions</h1>
+
+@foreach (var item in Model)
+
+{
+    if(item.Etudiants != null && @item.Etudiants.Contains(u))
+    {
+            <p>Vous êtes inscrit à la session : @item.Intitule.</p>
+
+    }
+}
+
+@*<p>@u.Prenom</p>*@
+@*@if (SignInManager.IsSignedIn(User))
+{
+    <h6>Vous êtes inscrits à la session</h6>
+}*@
+
+
 
 @*<p>
     <a asp-action="Create">Nouvelle session</a>
@@ -39,7 +61,17 @@
                         <h5 class="card-title">@Html.DisplayFor(modelItem => item.Intitule)</h5>
                          <p class="card-text">@Html.DisplayFor(modelItem => item.DateDebut)</p>
                          <p class="card-text">@Html.DisplayFor(modelItem => item.DateFin)</p>
-                         <a href="#" class="btn btn-primary" >S'inscrire à la session</a>
+                           
+                         @if (!SignInManager.IsSignedIn(User))
+                         {
+                                <a  href="/Identity/Account/Register" class="btn btn-primary" >S'inscrire à la session</a>
+                            }
+                            else
+                            {
+                                <a asp-action="InscriptionSession" asp-route-id="@item.Id" class="btn btn-primary" >S'inscrire à la session</a>
+                                @*<a asp-action="Details" asp-route-id="@item.Id">DetailsTEST</a>*@
+                            }
+
                     </div>
                     </div>
                 </div>
@@ -53,7 +85,16 @@
                         <h5 class="card-title">@Html.DisplayFor(modelItem => item.Intitule)</h5>
                          <p class="card-text">@Html.DisplayFor(modelItem => item.DateDebut)</p>
                          <p class="card-text">@Html.DisplayFor(modelItem => item.DateFin)</p>
-                         <a href="#" class="btn btn-primary" >S'inscrire à la session</a>
+                         @if (!SignInManager.IsSignedIn(User))
+                         {
+                                <a href="/Identity/Account/Register" class="btn btn-primary" >S'inscrire à la session</a>
+                            }
+                            else
+                            {
+                                <a asp-action="InscriptionSession" asp-route-id="@item.Id" class="btn btn-primary" >S'inscrire à la session</a>
+
+
+                            }
                     </div>
                     </div>
                 </div>
