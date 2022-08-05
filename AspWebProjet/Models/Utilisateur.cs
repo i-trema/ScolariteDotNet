@@ -15,5 +15,7 @@ namespace AspWebProjet.Models
         public string? CV { get; set; }
         
         public int? Role { get; set; }
+        
+        
     }
 }

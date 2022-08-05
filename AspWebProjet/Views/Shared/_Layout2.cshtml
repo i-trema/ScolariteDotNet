@@ -1,9 +1,14 @@
 ﻿@model IEnumerable<AspWebProjet.Models.Session>
 @using Microsoft.AspNetCore.Identity
+
+@using AspWebProjet.Models
+
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
+@{
 
+}
 
 
 <!DOCTYPE html>
@@ -63,7 +68,13 @@
                         <li>
                             <a class="btn btn-outline-primary mb-2" href="/Home/Contact">Contactez-nous</a>
                         </li>
+                        
                     </ul>
+                    <a class="nav-link text-dark" id="#panier" onclick="AfficherPanier()">
+                       
+                         
+                    </a>
+
                     
                     @Html.Partial("_LoginPartial")
                     @*<a class="menu cta btn"><img src="~/Images/menu_icon.png" alt="#"></a>*@
@@ -91,6 +102,17 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        function AfficherPanier(){
+            $.ajax({
+            url: '/Paniers/Index'
+                        }
+
+        });
+        }
+    </script>
 </body>
 </html>

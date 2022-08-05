@@ -16,6 +16,7 @@ namespace AspWebProjet.Data
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Utilisateur> Utilisateurs { get; set; }
         public DbSet<UnitePedagogique> UnitesPedagogiques { get; set; }
+        public DbSet<Panier> Paniers { get; set; }
         
     }
 }

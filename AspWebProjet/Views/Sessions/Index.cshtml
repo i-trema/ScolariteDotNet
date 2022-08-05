@@ -124,30 +124,54 @@
   @foreach ( var parc in ParcoursList)
     {
         <div style="display:inline-flex;">
-        <div class="card" style="width: 200px; height: 300px; margin-top:20px ; margin-right:20px; text-align:center; padding-top:20px" >
+        <div class="card" style="width: 200px; height:auto; margin-top:20px ; margin-right:20px; text-align:center; padding-top:20px" >
                         <img src="~/Images/@parc.Logo" class="card-img-top" style="width:70px; margin:auto" alt="...">
                      <div class="card-body">
                         <h5 class="card-title">@Html.DisplayFor(modelItem => parc.Nom)</h5>
                          <p class="card-text">@Html.DisplayFor(modelItem => parc.Resume)</p>
                          
-                         <a href="#" class="btn btn-primary" >S'inscrire</a>
+                         @*<a href="#" class="btn btn-primary" >S'inscrire</a>*@
                     </div>
                     </div>
         
         @foreach ( var mod in parc.Modules)
         {
-            <div class="card" style="width: 150px; height: 300px; padding:10px; text-align:center; justify-content:space-between; margin-top:20px; margin-right:5px; background-color:lightgrey">
+            <div class="card" style="width: 150px; height: auto; padding:10px; text-align:center; justify-content:space-between; margin-top:20px; margin-right:5px; background-color:lightgrey">
                 <img src="~/Images/@mod.Logo" width="50px" style="margin:auto; padding:8px">   
                 <h6>@mod.Nom</h6> 
                    <p>@mod.Resume</p>
                    <p>@mod.Infos</p>
+                   <a class="btn btn-outline-primary" style="font-size:0.8rem; margin:10px" onclick="ajouter(@mod.Id)">Ajouter</a>
+
+                   
             </div>
         }
        
        </div> 
+       <br />
     }
 
     </div>
+    @section Scripts{
+
+     <script>
+    
+    function ajouter(x){
+        
+       document.getElementById('#panier').innerHTML = content;
+
+
+        $.ajax({
+            url: '/Paniers/AddById/'+x,
+            type: 'post',
+            success: function(content){
+                document.getElementById('#panier').innerHTML = content;
+            }
+
+        });
+    };
+</script>
+    }
   
 
 

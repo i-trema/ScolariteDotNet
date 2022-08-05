@@ -23,7 +23,10 @@ namespace AspWebProjet.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Modules.Include(x => x.Parcours).Include(x => x.UnitePedagogique);
+            //ViewBag.ModulesList = _context.Modules.Include(m => m).ToList();
+
             return View(await applicationDbContext.ToListAsync());
+
         }
 
         // GET: Modules/Details/5

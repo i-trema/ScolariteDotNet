@@ -4,6 +4,7 @@ using AspWebProjet.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AspWebProjet.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220805103945_newdDB6")]
+    partial class newdDB6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,9 +42,6 @@ namespace AspWebProjet.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PanierUtilisateurEmail")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("ParcoursId")
                         .HasColumnType("int");
 
@@ -52,25 +51,18 @@ namespace AspWebProjet.Data.Migrations
                     b.Property<int>("UnitePedagogiqueId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<string>("UtilisateurEmail")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasIndex("PanierUtilisateurEmail");
+                    b.HasKey("Id");
 
                     b.HasIndex("ParcoursId");
 
                     b.HasIndex("UnitePedagogiqueId");
 
+                    b.HasIndex("UtilisateurEmail");
+
                     b.ToTable("Modules");
-                });
-
-            modelBuilder.Entity("AspWebProjet.Models.Panier", b =>
-                {
-                    b.Property<string>("UtilisateurEmail")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("UtilisateurEmail");
-
-                    b.ToTable("Paniers");
                 });
 
             modelBuilder.Entity("AspWebProjet.Models.Parcours", b =>
@@ -384,10 +376,6 @@ namespace AspWebProjet.Data.Migrations
 
             modelBuilder.Entity("AspWebProjet.Models.Module", b =>
                 {
-                    b.HasOne("AspWebProjet.Models.Panier", null)
-                        .WithMany("Modules")
-                        .HasForeignKey("PanierUtilisateurEmail");
-
                     b.HasOne("AspWebProjet.Models.Parcours", "Parcours")
                         .WithMany("Modules")
                         .HasForeignKey("ParcoursId")
@@ -399,6 +387,10 @@ namespace AspWebProjet.Data.Migrations
                         .HasForeignKey("UnitePedagogiqueId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("AspWebProjet.Models.Utilisateur", null)
+                        .WithMany("Panier")
+                        .HasForeignKey("UtilisateurEmail");
 
                     b.Navigation("Parcours");
 
@@ -480,11 +472,6 @@ namespace AspWebProjet.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("AspWebProjet.Models.Panier", b =>
-                {
-                    b.Navigation("Modules");
-                });
-
             modelBuilder.Entity("AspWebProjet.Models.Parcours", b =>
                 {
                     b.Navigation("Modules");
@@ -498,6 +485,11 @@ namespace AspWebProjet.Data.Migrations
             modelBuilder.Entity("AspWebProjet.Models.UnitePedagogique", b =>
                 {
                     b.Navigation("Modules");
+                });
+
+            modelBuilder.Entity("AspWebProjet.Models.Utilisateur", b =>
+                {
+                    b.Navigation("Panier");
                 });
 #pragma warning restore 612, 618
         }

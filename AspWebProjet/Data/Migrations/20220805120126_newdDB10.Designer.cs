@@ -4,6 +4,7 @@ using AspWebProjet.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AspWebProjet.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220805120126_newdDB10")]
+    partial class newdDB10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,9 +42,6 @@ namespace AspWebProjet.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PanierUtilisateurEmail")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("ParcoursId")
                         .HasColumnType("int");
 
@@ -54,23 +53,11 @@ namespace AspWebProjet.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PanierUtilisateurEmail");
-
                     b.HasIndex("ParcoursId");
 
                     b.HasIndex("UnitePedagogiqueId");
 
                     b.ToTable("Modules");
-                });
-
-            modelBuilder.Entity("AspWebProjet.Models.Panier", b =>
-                {
-                    b.Property<string>("UtilisateurEmail")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("UtilisateurEmail");
-
-                    b.ToTable("Paniers");
                 });
 
             modelBuilder.Entity("AspWebProjet.Models.Parcours", b =>
@@ -384,10 +371,6 @@ namespace AspWebProjet.Data.Migrations
 
             modelBuilder.Entity("AspWebProjet.Models.Module", b =>
                 {
-                    b.HasOne("AspWebProjet.Models.Panier", null)
-                        .WithMany("Modules")
-                        .HasForeignKey("PanierUtilisateurEmail");
-
                     b.HasOne("AspWebProjet.Models.Parcours", "Parcours")
                         .WithMany("Modules")
                         .HasForeignKey("ParcoursId")
@@ -478,11 +461,6 @@ namespace AspWebProjet.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("AspWebProjet.Models.Panier", b =>
-                {
-                    b.Navigation("Modules");
                 });
 
             modelBuilder.Entity("AspWebProjet.Models.Parcours", b =>
