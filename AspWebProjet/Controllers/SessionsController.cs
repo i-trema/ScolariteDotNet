@@ -27,6 +27,7 @@ namespace AspWebProjet.Controllers
             var u = await _context.Utilisateurs.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
             var session = await _context.Sessions
                  .Include(s => s.Parcours)
+                 .Include(s => s.Responsable)
                  .FirstOrDefaultAsync(m => m.Id == id);
 
             //ViewBag.SessionsList = _context.Sessions.Include(s => s.Etudiants).ToList();
@@ -43,6 +44,7 @@ namespace AspWebProjet.Controllers
             var u = await _context.Utilisateurs.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
             var session = await _context.Sessions
                  .Include(s => s.Parcours)
+                 .Include(s => s.Responsable)
                  .FirstOrDefaultAsync(m => m.Id == id);
 
             if (session.Etudiants == null)
@@ -75,44 +77,11 @@ namespace AspWebProjet.Controllers
         }
 
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> InscriptionSession(Utilisateur utilisateur, Session session)
-        //{
-
-        //    utilisateur = await _context.Utilisateurs.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
-
-
-
-
-        //    if (/*ModelState.IsValid*/ 1 == 1)
-        //    {
-        //        try
-        //        {
-
-        //            session.Etudiants.Add(utilisateur);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!UtilisateurExists(utilisateur.Email))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(utilisateur);
-        //}
-
+        
         // GET: Sessions
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Sessions.Include(s => s.Parcours);
+            var applicationDbContext = _context.Sessions.Include(s => s.Parcours).Include(s => s.Responsable);
 
             var u = await _context.Utilisateurs.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
 
@@ -121,11 +90,7 @@ namespace AspWebProjet.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        //public async Task<List<Parcours>> IndexParcours()
-        //{
-        //    var applicationDbContext = _context.Parcours.Include(s => s.Modules);
-        //    return await applicationDbContext.ToListAsync();
-        //}
+        
 
         // GET: Sessions/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -137,6 +102,7 @@ namespace AspWebProjet.Controllers
 
             var session = await _context.Sessions
                 .Include(s => s.Parcours)
+                .Include(s => s.Responsable)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (session == null)
             {
@@ -150,6 +116,7 @@ namespace AspWebProjet.Controllers
         public IActionResult Create()
         {
             ViewData["ParcoursId"] = new SelectList(_context.Parcours, "Id", "Id");
+
             return View();
         }
 
@@ -167,6 +134,8 @@ namespace AspWebProjet.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ParcoursId"] = new SelectList(_context.Parcours, "Id", "Id", session.ParcoursId);
+            ViewData["ResponsableEmail"] = new SelectList(_context.Utilisateurs.Where(u => u.Role == 1), "Email", "Email", session.ResponsableEmail);
+
             return View(session);
         }
 
@@ -184,6 +153,8 @@ namespace AspWebProjet.Controllers
                 return NotFound();
             }
             ViewData["ParcoursId"] = new SelectList(_context.Parcours, "Id", "Id", session.ParcoursId);
+            ViewData["ResponsableEmail"] = new SelectList(_context.Utilisateurs.Where(u => u.Role == 1), "Email", "Email", session.ResponsableEmail);
+
             return View(session);
         }
 
@@ -220,6 +191,8 @@ namespace AspWebProjet.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ParcoursId"] = new SelectList(_context.Parcours, "Id", "Id", session.ParcoursId);
+            ViewData["ResponsableEmail"] = new SelectList(_context.Utilisateurs.Where(u => u.Role == 1), "Email", "Email", session.ResponsableEmail);
+
             return View(session);
         }
 

@@ -13,6 +13,7 @@ namespace AspWebProjet.Models
         public int ParcoursId { get; set; }
         public Parcours? Parcours { get; set; }
 
+        public string? ResponsableEmail { get; set; }
         public Utilisateur? Responsable { get; set; }
 
         public ICollection<Utilisateur>? Etudiants { get; set; }
